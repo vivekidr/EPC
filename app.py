@@ -14,15 +14,15 @@ SHEET_NAME = "DhruvRathee"
 CREDS_FILE = "creds.json"
 
 def get_worksheet():
-    # Authenticate and open the Google Sheet
-    creds = Credentials.from_service_account_file(
-        CREDS_FILE,
-        scopes=["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
-    )
+    """Authenticate and return the Google Sheets worksheet."""
+    credentials = st.secrets["gcp_service_account"]
+    scopes = ["https://www.googleapis.com/auth/spreadsheets"]
+    
+    creds = Credentials.from_service_account_info(credentials, scopes=scopes)
     client = gspread.authorize(creds)
-    sheet = client.open_by_key(SPREADSHEET_ID)
-    worksheet = sheet.worksheet(SHEET_NAME)
-    return worksheet
+
+    sheet = client.open_by_key(SPREADSHEET_ID)  # Ensure SPREADSHEET_ID is correct
+    return sheet.worksheet(SHEET_NAME)  # Ensure SHEET_NAME exists
 
 def load_data():
     """Load tweet data from Google Sheets and ensure annotation columns exist."""
