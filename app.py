@@ -1,6 +1,5 @@
 import streamlit as st 
 import pandas as pd
-import os
 import gspread
 from google.oauth2.service_account import Credentials
 from gspread_dataframe import get_as_dataframe, set_with_dataframe
@@ -11,26 +10,34 @@ st.set_page_config(layout="wide")
 # Google Sheets configuration
 SPREADSHEET_ID = "1tf_zm894nO6We_WggGcoCeHf88chOlogH8mdHAU0fOs"
 SHEET_NAME = "DhruvRathee"
-CREDS_FILE = "creds.json"
+
+# Hardcoded service account credentials
+creds_info = {
+    "type": "service_account",
+    "project_id": "tweet-annotation-tool",
+    "private_key_id": "e6f3a61a117638dceb9d11b7d698b4e2976aed73",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC0D9bWBikhhxCY\nHOy8x5j1ZJtpO0kk5cYv7lgmCI0Q6LeKkqGu4Xk8kDjOtjrg8aM8EJCrmVEy4PRb\nsQG/a/IvUG5DHGbkuLHKCf3bI6cMIBjvUghX4NPhUfAt7MO5BztAUpPx2LO/eHkD\nQkbQHuE+czC5tnJ1/aEEnYYAvILkAe+HDolCQdXKGMvOT2BWUXsgmos+aJ1LeJNb\n6R9eGOADZ1s/x4dJooMpxpE1qhN0P/KGEZYr/OPR/oJq2RM2IAivEj+9cfqVAmDf\nAu6iHPSxfdtNOzOJtimSuHanP8Mi1sMV218DcstDbcnddZEfdKi9kaJTFJUWJv2B\nRveCyVWrAgMBAAECggEABCv+60Y/1pIGsNQeKcWOr0RCL0FEiG8IucWSE9eDKcXY\nRRc6EA9ccryh1pljIUWqQPeVSV2r3vKfn+VfkSLS/PKBsBHM0jZhRwJf+A0carUT\nGkBkvfNaTD4Dnrg0ndb+6N+cWsKNlCsaQYZcA6hspQHpXvQofeTIVCF5oFgrf55J\nUMPCj1Wl+nRhaK0qAVsl1OnXl4CwqxTzOecQNO96bg2UHe+wLPDoL9xgqykLw0Mj\nGIksL/poXxdgFzwR3bqaakwX2PaIcEnwnl+YuFLsVX1xMiWuJp/kNBSdowGyTtBL\neL2qgSPvgoho5EJPBeTNKmnNQKMb6HzbvGCUpdzI8QKBgQDnF2seF6+F1qcJPToW\nwsCznNcivyHYyn4TDeS2SD9rjHPRRW5MGTIY8x/Vra4olA8JRpiEGSxG3CXUd4UK\nn+3EPg1CQNPTEQrVLnwh1lrheLak8r+VboXIekABJAdlXtKo9wzdYlpdNC8it8Gv\n5Ho4ULXzWb6thoeR+gLZlw3WcwKBgQDHeFgrnS5nJs4yh03qtszdLlD9xC81Kfmz\n3yEHeAZohnXuTTvmnep003I1yuRsZr8913PXts5Wnr/XWKCCu1pL5oqEcy8/SxxQ\npwZc3K2EFkD9ufoWC+l0Js67Lpn0PD5KpUxn3eiC7z/PR9h3MqyolFbKVTUOkxUJ\nreSwCtl96QKBgFmB0JOPSQTl5zzE4kL+m/T1wr5KmamGhN6MexG/WhEmDZX49oez\nGpxfTu1MoDBHaKuHFHvV5Dht/JkW0gkTeNyRzEDlKyaNa0y2/I1+oSTDxLqO63XN\noTPNZg0LD3JMD/wx9GGrPqTrGXaxBexC6rP1TwQ6togvm0MHOyNcRpfRAoGAOR0X\nOd22pKhyz/r372XKAOa7H/4lejZ7neocnfPa+eDOMZ6BsUW0FSFaCVb/0p4U0hM3\nwyM/r4Oi8Hka9HPKpgLr1ILam2fZQqqgYsR5FmH81+mBVwCwJqbZ+LSeNlVtjJgJ\n6Y+bfKoefi5XJ8Ilt9tJgoOlPngUxQG6gkGJBskCgYAlC7HGNImnP7hV9SspSVGr\nyKzTQpZbDmrcngbjP6n8Kr60YSIw0KRljQslB158RCpEal0yqEnz4naEYMFUEd1r\n4eRmDz4Cs8Ii0LfrQwG93XI1ALBbBJGDXM0X5FFVlDCMxthr7EwqHvMO+3EINF1q\n1+NM4jiTU7g9QEIPelBmXA==\n-----END PRIVATE KEY-----\n",
+    "client_email": "sheets-access@tweet-annotation-tool.iam.gserviceaccount.com",
+    "token_uri": "https://oauth2.googleapis.com/token"
+}
 
 def get_worksheet():
     """Authenticate and return the Google Sheets worksheet."""
-    credentials = st.secrets["gcp_service_account"]
-    scopes = ["https://www.googleapis.com/auth/spreadsheets"]
-    
-    creds = Credentials.from_service_account_info(credentials, scopes=scopes)
+    scopes = [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive"
+    ]
+    creds = Credentials.from_service_account_info(creds_info, scopes=scopes)
     client = gspread.authorize(creds)
-
-    sheet = client.open_by_key(SPREADSHEET_ID)  # Ensure SPREADSHEET_ID is correct
-    return sheet.worksheet(SHEET_NAME)  # Ensure SHEET_NAME exists
+    sheet = client.open_by_key(SPREADSHEET_ID)
+    worksheet = sheet.worksheet(SHEET_NAME)
+    return worksheet
 
 def load_data():
     """Load tweet data from Google Sheets and ensure annotation columns exist."""
     worksheet = get_worksheet()
     df = get_as_dataframe(worksheet, evaluate_formulas=True)
-    # Remove completely empty rows if any
-    df = df.dropna(how="all")
-    # Ensure annotation columns exist
+    df = df.dropna(how="all")  # Remove completely empty rows if any
     for col in ['is_annotated', 'Economics', 'Political', 'Cultural', 'is_relevent']:
         if col not in df.columns:
             df[col] = False if col in ['is_annotated', 'is_relevent'] else None
@@ -39,7 +46,6 @@ def load_data():
 def save_data(df):
     """Save the DataFrame back to Google Sheets."""
     worksheet = get_worksheet()
-    # Write the DataFrame to the sheet, resizing if necessary
     set_with_dataframe(worksheet, df, include_index=False, resize=True)
 
 def annotate_tweet(df, tweet_index, ratings, is_relevent):
@@ -51,7 +57,7 @@ def annotate_tweet(df, tweet_index, ratings, is_relevent):
     df.loc[tweet_index, "is_annotated"] = True
     save_data(df)
     st.success("Annotation saved!")
-    st.rerun()
+    st.experimental_rerun()
 
 # Custom CSS for grid alignment, centered checkboxes, and colored buttons
 st.markdown(
@@ -70,7 +76,6 @@ st.markdown(
         font-weight: bold;
         background-color: #f0f0f0;
     }
-    /* Colored button wrappers */
     .red-button button {
         background-color: red !important;
         color: white !important;
@@ -79,7 +84,6 @@ st.markdown(
         background-color: green !important;
         color: white !important;
     }
-    /* Center the checkbox element */
     .stCheckbox > label {
         width: 100%;
         display: flex;
