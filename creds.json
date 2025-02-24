@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "tweet-annotation-tool",
+    "private_key_id": "854e8feffb6a62ad671e122fa026b03176bcba04",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDNZqFvyrr41AdN\noHAq/IoDA5MYWqTNkzUoV0w9RhxcGNppc31Q8q4dhWtBlcYxZlFN/pXEN4PEHbur\nECqFWc+ItZjIZmShqxgf1SSlf8eqL/WoTg6T64BpVm97a9lV6ifGc2K/ht0lPuGE\nYJCAcceWVbeNnRv//9pLJM75/YyxK0AC7hJl/XJg2LitPImPH38Uj8HWr6mUz6R5\n7bJtfifSjmWVK1nUo8mF+9hq7r8Q2UiTyaZnammMwF2v5arXZpLppCj8fInP3a7o\njkVN1fUAOOQAgyZAii85dngA1UwOlzyAvRrbqVdD+59r5UpbNbYZaEeJ33DU0y2d\nvGVhLhurAgMBAAECggEAL43UUHKKSTOloTZE4d7oAPyh4KCTyTiMtRNJBmKmDDiA\n0Ks5VzVoVFNgWqXXZfZ/WmRXvj7wFcagfWFXxtndL5SDk9oI8FkRU8VgH6Tu0Bsc\nb+Pqghqi90BYvSViAv8cSFjMgvUxW/8r7R8CNYqiH88mmPXH1sQggQc7mCs4mIe1\nQCJdnA0yxvBW3lTNNAJBuJIHXCdwFw47JrNdyRRfT/h/dYz2ACYPjKgmfkGglHDs\n8OL2FB6SluxmfV1NVQyB8rgS5eljixKVDLJh8tjNSFEkPg5bHS7JCPiRk7ZJ5odm\nKZuBH7uJFxc//uH/q5pNu0iBt28J8+kkact7FVq8qQKBgQD7ZUdSVRiNhPmpwVK5\nCb5D+pXbkp6lcxQQn6wWd6HwuBuIJJPBrPvKI7ZK/vPnjuSxEZXNG/UVYLjWVuU2\nigFoM4eNLmrrkt0fczwOI3GfuvxDqhtn7D7/zxKSjqN0J0CmRN177KiwHLUYK4MK\nIvh5LixeaZ17vQcaZHBFXfY6zQKBgQDRKbIxn/j5ggrch7uGgaSwoqCYxPSmanrN\nWo9HsZfXzdX23X6MAVJkzoLYnSBM8/fowDWFDRaQMchv4fBlr2hjs5BOkJlYpmqz\nVynYuo0YBddeGCvCqAO+w81SFKQs0ur/s3w7YmV7w8ZvH0fnerLhnTr7kXTe7ITI\n/N0GRMCgVwKBgH9Fv/zrvflvt+H8UMADMcNCqvm12gGTKDZeUAYz3NV8r9uWAQQN\nao/k0pZXSu4RRrBqYbesjsCa7hj9dx/McHfrlpWgSVsoSDBy65WQ1iZyyOIMzcEo\nNqDVmeZ+tjvI348N0D+8CY7XictJxBauq7LV8Hp/583MXjs7XCeSMWWFAoGAd+B2\n4Zw2/QF8KiKc5p08/4NlmckgEpTqZvGlNsjhJu0w2TjfA2zqhR4avf1n+tLE3h/z\nTJtQuDngD8elmRHsOWA7r9uOF9HhS4IEWNOqc/89DQ+7XOggpV/hOE7ePVZxGzYK\nWJqvYTy2aQ+7jT60cTxFBtO58N4LyImsP6B96icCgYEAl2EVmfFP2bAgMoFYHgFK\nYHIvfL6aSWfmY/AzKdOk4rETjQ/RA+ghNIkdiPROLKurHfMtyrXVtDnmeQkNDD20\nneLMUUXs6XmA6MLXk3HFB7kUe5RMgWG4YgtiQ/GCr3RjeX/N9ueArx8vn5hHJ/li\n8mcWbrInOIOWMSAQ5w4X7ws=\n-----END PRIVATE KEY-----\n",
+    "client_email": "sheets-access@tweet-annotation-tool.iam.gserviceaccount.com",
+    "client_id": "112752137553769184187",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sheets-access%40tweet-annotation-tool.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }
