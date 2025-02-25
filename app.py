@@ -57,7 +57,7 @@ def annotate_tweet(df, tweet_index, ratings, is_relevent):
     df.loc[tweet_index, "is_annotated"] = True
     save_data(df)
     st.success("Annotation saved!")
-    st.experimental_rerun()
+    st.rerun()
 
 # Custom CSS for grid alignment, centered checkboxes, and colored buttons
 st.markdown(
